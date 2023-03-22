@@ -14,6 +14,7 @@ public class Menu extends JPanel {
     JButton settings;
 
     private Color backgroundColor = new Color(208,196,170);
+    private Color logoColor = new Color(248,236,210);
 
     public Menu() throws IOException {
         initialize();
@@ -36,13 +37,13 @@ public class Menu extends JPanel {
         c.weighty = 1;
         c.gridheight = 5;
         JPanel spacer = new JPanel();
-        spacer.setBackground(Color.BLACK);
+        spacer.setBackground(logoColor);
         add(spacer,c);
     }
 
     public void initialize() throws IOException {
-        Image compostUT = ImageIO.read(new File("src/gui/resources/logo_bar.png"));
-        Icon logoBar = new ImageIcon(compostUT.getScaledInstance(200,100,Image.SCALE_DEFAULT));
+        Image compostUT = ImageIO.read(new File("src/gui/resources/menu/logo_bar.png"));
+        Icon logoBar = new ImageIcon(compostUT.getScaledInstance(100,50,Image.SCALE_DEFAULT));
         logo = new JLabel(logoBar);
         logo.setBackground(backgroundColor);
 

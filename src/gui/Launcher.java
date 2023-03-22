@@ -19,12 +19,12 @@ public class Launcher{
         try {
             frame.add(new Menu(),c);
         } catch (IOException e) {
-            frame.add(new ErrorDisplay());
+            frame.add(new ErrorDisplay("Image Resource not found"));
         }
 
-        //c.gridx = 1;
-        //c.weightx = 1;
-        //frame.add(new Display());
+        c.gridx = 1;
+        c.weightx = 1;
+        frame.add(new Display(),c);
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

@@ -56,7 +56,7 @@ public class Entry extends JPanel{
         ratio.setBackground(boxColor);
         ratio.setFont(new Font("Big",Font.PLAIN,20));
         submit = new JButton("Submit");
-        submit.setBackground(boxColor);
+        submit.setBackground(Color.orange);
         submit.setBorderPainted(false);
         initializeInput();
     }
@@ -70,6 +70,8 @@ public class Entry extends JPanel{
         inputC.weighty = 1;
         inputC.insets = new Insets(10,10,10,10);
         input.setLayout(new GridBagLayout());
+        input.add(new JLabel("Date"),inputC);
+        c.gridx = 1;
         try {
             JFormattedTextField date = new JFormattedTextField(new MaskFormatter("##/##/##"));
             Calendar now = Calendar.getInstance();
@@ -80,9 +82,9 @@ public class Entry extends JPanel{
         } catch (ParseException e){
 
         }
-        for (int i=0; i<4; i++){
+        for (int i=0; i<6; i++){
             inputC.gridx = i%2;
-            inputC.gridy = i-(i-2*(i/2)) + 1;
+            inputC.gridy = 2*(i-(i-2*(i/2)) + 1);
             input.add(new JTextField(),inputC);
         }
     }

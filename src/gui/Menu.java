@@ -10,8 +10,9 @@ import java.io.IOException;
 public class Menu extends JPanel {
     GridBagConstraints c = new GridBagConstraints();
     JLabel logo;
-    JButton home;
-    JButton settings;
+    JButton entry;
+    JButton data;
+    JButton files;
 
     private Color backgroundColor = new Color(208,196,170);
     private Color logoColor = new Color(248,236,210);
@@ -28,12 +29,15 @@ public class Menu extends JPanel {
         add(logo, c);
 
         c.gridy = 1;
-        add(home, c);
+        add(entry, c);
 
         c.gridy = 2;
-        add(settings,c);
+        add(data,c);
 
         c.gridy = 3;
+        add(files,c);
+
+        c.gridy = 4;
         c.weighty = 1;
         c.gridheight = 5;
         JPanel spacer = new JPanel();
@@ -47,12 +51,16 @@ public class Menu extends JPanel {
         logo = new JLabel(logoBar);
         logo.setBackground(backgroundColor);
 
-        home = new JButton("Home");
-        home.setBorderPainted(false);
-        home.setBackground(backgroundColor);
+        entry = new JButton("Home");
+        entry.setBorderPainted(false);
+        entry.setBackground(backgroundColor);
 
-        settings = new JButton("Settings");
-        settings.setBorderPainted(false);
-        settings.setBackground(backgroundColor);
+        data = new JButton("Settings");
+        data.setBorderPainted(false);
+        data.setBackground(backgroundColor);
+
+        files = new JButton("Files");
+        files.setBorderPainted(false);
+        files.setBackground(backgroundColor);
     }
 }

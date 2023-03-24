@@ -16,15 +16,19 @@ public class Launcher{
         c.weightx = 0;
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
+        Menu menu = null;
         try {
-            frame.add(new Menu(),c);
+            menu = new Menu();
+            frame.add(menu,c);
         } catch (IOException e) {
             frame.add(new ErrorDisplay("Image Resource not found"));
         }
 
         c.gridx = 1;
         c.weightx = 1;
-        frame.add(new Display(),c);
+        if (menu != null) {
+            frame.add(new Display(menu), c);
+        }
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

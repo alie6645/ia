@@ -2,6 +2,7 @@ package gui.pages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class Entry extends JPanel {
     final Color boxColor = new Color(200,200,200);
@@ -86,11 +87,15 @@ public class Entry extends JPanel {
         inputC.weighty = 1;
         inputC.insets = new Insets(10,10,10,10);
         input.setLayout(new GridBagLayout());
-        for (int i=0; i<4; i++){
+        for (int i=0; i<3; i++){
             inputC.gridx = i%2;
             inputC.gridy = i-(i - 2*(i/2));
             System.out.println();
             input.add(new JTextField(),inputC);
         }
+    }
+
+    public void addEntry(File file){
+
     }
 }

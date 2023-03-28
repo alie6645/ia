@@ -19,21 +19,21 @@ public class Display extends JPanel{
     Files files = new Files();
     public JPanel current;
     public JPanel[] pages = new JPanel[3];
+    List<String[]> table;
 
     public Display(Menu menu){
         this.menu = menu;
         pages[0] = entry;
         pages[1] = data;
         pages[2] = files;
+        try {
+            table = Loader.getDefault();
+        } catch (FileNotFoundException e) {
+            open(new ErrorDisplay(e.getMessage()));
+        }
         setLayout(new BorderLayout());
-        open(1);
+        open(0);
         initialize();
-        List<String[]> test = new ArrayList<>();
-        String[] entry = {"1", "2", "3", "4", "5", "6"};
-        String[] entry2 = {"6", "5", "4", "3", "2", "1"};
-        test.add(entry);
-        test.add(entry2);
-        data.display(test);
     }
 
     public void initialize(){
@@ -60,8 +60,8 @@ public class Display extends JPanel{
     }
 
     public void openFile() throws FileNotFoundException {
-        List<String[]> table = Loader.getTable(files.getFile());
-        data.display(table);
+        table = Loader.getTable(files.getFile());
+
     }
 
     public void open(int n){
@@ -74,6 +74,9 @@ public class Display extends JPanel{
         }
         current = panel;
         add(current);
+        if (current instanceof DataDisplay){
+            ((DataDisplay) current).display(table);
+        }
         revalidate();
         repaint();
     }

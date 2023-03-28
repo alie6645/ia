@@ -27,6 +27,7 @@ public class DataDisplay extends JPanel{
     }
 
     public void display(List<String[]> input){
+        remove(0);
         String[][] data = new String[input.size()][];
         for (int i=0; i<input.size(); i++){
             data[i] = input.get(i);

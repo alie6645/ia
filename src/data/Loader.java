@@ -6,13 +6,13 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Loader {
-    private static final String ROOT = "src/data/";
+    private static final String ROOT = "src/data/tables/";
 
     public static Map<String,String> getTables(){
         Scanner in = null;
         Map<String, String> tables = new HashMap<>();
         try {
-            in = new Scanner(new File("src/data/main.txt"));
+            in = new Scanner(new File(ROOT + "main.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -23,6 +23,22 @@ public class Loader {
         }
         in.close();
         return tables;
+    }
+
+    public static int getIndex(String table){
+        int i = 0;
+        Iterator<String> keys = getTables().keySet().iterator();
+        while (keys.hasNext()){
+            if (getTables().get(keys.next()).equals(table)){
+                return i;
+            }
+            i++;
+        }
+        return 0;
+    }
+
+    public static File getFile(String filename){
+        return new File(ROOT + filename);
     }
 
     public static List<String[]> getTable(String filename) throws FileNotFoundException {
@@ -44,5 +60,10 @@ public class Loader {
         }
         reader.close();
         return data;
+    }
+
+    public static List<String[]> getDefault() throws FileNotFoundException {
+        Iterator<String> keys = getTables().keySet().iterator();
+        return getTable(getTables().get(keys.next()));
     }
 }

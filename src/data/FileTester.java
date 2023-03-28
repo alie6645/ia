@@ -8,8 +8,7 @@ public class FileTester {
         String key = Loader.getTables().keySet().iterator().next();
         String filename = Loader.getTables().get(key);
         Editor editor = new Editor();
-        editor.setTable(new File("src/data/" + filename));
-        editor.append("adding things");
-        editor.remove(0);
+        editor.setTable(Loader.getFile(filename));
+        editor.remove(1);
     }
 }

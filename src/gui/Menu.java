@@ -46,7 +46,7 @@ public class Menu extends JPanel {
     }
 
     public void initialize() throws IOException {
-        Image compostUT = ImageIO.read(new File("src/gui/resources/menu/logo_bar.png"));
+        Image compostUT = ImageIO.read(new File("src/gui/resources/logo_bar.png"));
         Icon logoBar = new ImageIcon(compostUT.getScaledInstance(100,50,Image.SCALE_DEFAULT));
         logo = new JLabel(logoBar);
         logo.setBackground(backgroundColor);

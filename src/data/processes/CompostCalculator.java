@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompostCalculator {
+    public Material fruits = new Material("fruit",0.52,0.026);
+    public Material vegetables = new Material("veg",0.513,0.024);
+    public Material mixed = new Material("mix", 0.516,0.025);
     public List<Material> materials = new ArrayList<Material>();
     public int[] calculate(double startC, double startN){
         int last = materials.size() + 1;
@@ -31,5 +34,13 @@ public class CompostCalculator {
 
     public void addMaterial(String name, double carbon, double nitrogen){
         materials.add(new Material(name, carbon, nitrogen));
+    }
+
+    public double getStartN(double fruit, double veg, double mix){
+        return fruit*fruits.nitrogen + veg * vegetables.nitrogen + mix * mixed.nitrogen;
+    }
+
+    public double getStartC(double fruit, double veg, double mix){
+        return fruit*fruits.carbon + veg * vegetables.carbon + mix * mixed.carbon;
     }
 }

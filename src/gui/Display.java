@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,18 +51,25 @@ public class Display extends JPanel{
             }
         }
         JButton openFile = (JButton) files.getComponent(1);
-        openFile.addActionListener(e -> {
-            try {
-                openFile();
-            } catch (FileNotFoundException ex) {
-                open(new ErrorDisplay(ex.getMessage()));
-            }
-        });
+        openFile.addActionListener(e -> openFile());
+        entry.getSubmit().addActionListener(e -> addEntry());
     }
 
-    public void openFile() throws FileNotFoundException {
-        table = Loader.getTable(files.getFile());
+    public void openFile(){
+        try{
+            table = Loader.getTable(files.getFile());
+        } catch (FileNotFoundException ex) {
+            open(new ErrorDisplay(ex.getMessage()));
+        }
+    }
 
+    public void addEntry(){
+        try {
+            entry.addEntry(Loader.getFile(files.getFile()));
+        } catch (IOException ex) {
+            open(new ErrorDisplay(ex.getMessage()));
+        }
+        openFile();
     }
 
     public void open(int n){

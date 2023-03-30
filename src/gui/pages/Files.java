@@ -29,7 +29,7 @@ public class Files extends JPanel {
             names[i] = keys.next();
         }
         open = new JButton("open");
-        create = new JButton("add");
+        create = new JButton("new");
         fileChooser = new JComboBox(names);
     }
 

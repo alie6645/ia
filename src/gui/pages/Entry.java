@@ -1,8 +1,15 @@
 package gui.pages;
 
+import data.Editor;
+import data.processes.CompostCalculator;
+
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Calendar;
 
 public class Entry extends JPanel {
     final Color boxColor = new Color(200,200,200);
@@ -12,6 +19,10 @@ public class Entry extends JPanel {
     JPanel ratio;
     JPanel input = new JPanel();
     JButton submit;
+    JButton calculate;
+    JTextField[] entryData = new JTextField[5];
+    String[] fields = {"Fruits", "Vegetables", "Mixed", "Leaves", "Paper"};
+    JFormattedTextField date;
 
     public Entry(){
         initialize();
@@ -87,15 +98,46 @@ public class Entry extends JPanel {
         inputC.weighty = 1;
         inputC.insets = new Insets(10,10,10,10);
         input.setLayout(new GridBagLayout());
-        for (int i=0; i<3; i++){
+        input.add(new JLabel("Date"),inputC);
+        c.gridx = 1;
+        try {
+            date = new JFormattedTextField(new MaskFormatter("##/##/##"));
+            Calendar now = Calendar.getInstance();
+            String month = String.valueOf(now.get(Calendar.MONTH));
+            month = (month.length()==2)?month:"0"+month;
+            date.setValue((month+ "/" + now.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(now.get(Calendar.YEAR)).substring(2)));
+            input.add(date,inputC);
+        } catch (ParseException e){
+
+        }
+        for (int i=0; i<5; i++){
             inputC.gridx = i%2;
-            inputC.gridy = i-(i - 2*(i/2));
-            System.out.println();
-            input.add(new JTextField(),inputC);
+            inputC.gridy = 2*(i-(i - 2*(i/2)))+2;
+            entryData[i] = new JTextField();
+            input.add(entryData[i],inputC);
+            inputC.gridy--;
+            input.add(new JLabel(fields[i]),inputC);
         }
     }
 
-    public void addEntry(File file){
+    public void addEntry(File file) throws IOException {
+        Editor editor = new Editor();
+        editor.setTable(file);
+        String addition = "\n" + date.getText() + " ";
+        for (int i=0; i<5; i++){
+            String val = entryData[i].getText();
+            addition += (val.trim().equals(""))?"0":val;
+            addition += " ";
+            entryData[i].setText("");
+        }
+        editor.append(addition);
+    }
 
+    public void calculate(File file){
+        CompostCalculator calculator = new CompostCalculator();
+    }
+
+    public JButton getSubmit(){
+        return submit;
     }
 }

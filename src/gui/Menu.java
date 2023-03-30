@@ -51,11 +51,11 @@ public class Menu extends JPanel {
         logo = new JLabel(logoBar);
         logo.setBackground(backgroundColor);
 
-        entry = new JButton("Home");
+        entry = new JButton("Entry");
         entry.setBorderPainted(false);
         entry.setBackground(backgroundColor);
 
-        data = new JButton("Settings");
+        data = new JButton("View Data");
         data.setBorderPainted(false);
         data.setBackground(backgroundColor);
 

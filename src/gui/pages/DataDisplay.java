@@ -1,6 +1,7 @@
 package gui.pages;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -42,6 +43,12 @@ public class DataDisplay extends JPanel{
         });
 
         table.setSelectionBackground(Color.orange);
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i=0; i<table.getColumnCount(); i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+        table.setShowVerticalLines(false);
         scrollPane = new JScrollPane(table);
         add(scrollPane);
         repaint();

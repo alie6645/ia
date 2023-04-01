@@ -2,7 +2,7 @@ package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Loader {
@@ -65,5 +65,21 @@ public class Loader {
     public static List<String[]> getDefault() throws FileNotFoundException {
         Iterator<String> keys = getTables().keySet().iterator();
         return getTable(getTables().get(keys.next()));
+    }
+
+    public static void createTable(String name) throws IOException {
+        if (name.isBlank()){
+            return;
+        }
+        File table = new File(ROOT + name.strip() + ".txt");
+        table.createNewFile();
+        Editor editor = new Editor();
+        editor.setTable(new File(ROOT + "main.txt"));
+        editor.append("\n" + name + " " + name.strip() + ".txt");
+    }
+
+    public static void setDefault(String table) throws IOException {
+        Editor editor = new Editor();
+        editor.setTable(new File(ROOT + "main.txt"));
     }
 }

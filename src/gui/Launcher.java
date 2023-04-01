@@ -2,7 +2,9 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Launcher{
     public static void main(String[] args) {
@@ -19,9 +21,13 @@ public class Launcher{
         Menu menu = null;
         try {
             menu = new Menu();
-            frame.add(menu,c);
-        } catch (IOException e) {
+            frame.add(menu, c);
+        } catch (FileNotFoundException fnfe){
             frame.add(new ErrorDisplay("Image Resource not found"));
+        } catch (IOException e) {
+            frame.add(new ErrorDisplay("Image error"));
+        } catch (URISyntaxException ex){
+            frame.add(new ErrorDisplay("JAR is incorrectly made"));
         }
 
         c.gridx = 1;

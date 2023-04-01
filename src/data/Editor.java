@@ -1,41 +1,37 @@
 package data;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class Editor {
-    private FileWriter writer;
-    private Scanner reader;
     private File current;
     public void setTable(File file) throws IOException {
         current = file;
     }
 
     public void append(String text) throws IOException {
-        writer = new FileWriter(current, true);
-        writer.append(text);
-        writer.flush();
-        writer.close();
+        RandomAccessFile target = new RandomAccessFile(current, "rw");
+        target.seek(target.length());
+        target.write(text.getBytes());
+        target.close();
     }
 
     public void remove(int row) throws IOException {
-        reader = new Scanner(current);
-        String removed = "";
+        BufferedReader input = new BufferedReader(new FileReader(current));
+        String path = current.getPath();
+        File temp = new File(path.substring(0,path.length()-current.getName().length()) + "temp.txt");
+        RandomAccessFile target = new RandomAccessFile(temp,"rw");
         int line = 0;
-        while (reader.hasNext()){
+        while(input.ready()){
+            String selected = input.readLine();
             if (line != row){
-                removed += reader.nextLine();
-                if (reader.hasNext()){
-                    removed += "\n";
-                }
-            } else {
-                reader.nextLine();
+                target.write(selected.getBytes());
+                target.write(System.lineSeparator().getBytes());
             }
             line++;
         }
-        writer = new FileWriter(current);
-        writer.write(removed);
-        writer.flush();
-        writer.close();
+        input.close();
+        target.close();
+        current.delete();
+        temp.renameTo(current);
     }
 }
